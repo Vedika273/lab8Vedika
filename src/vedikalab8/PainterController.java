@@ -4,8 +4,6 @@
  */
 package vedikalab8;
 
-
- 
 import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,12 +14,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
 public class PainterController {
-
     
      // GUI Component References 
     @FXML private Pane drawingAreaPane;
      
-     @FXML
+    @FXML
     private ToggleGroup colorToggleGroup;
 
     @FXML
@@ -36,12 +33,12 @@ public class PainterController {
     @FXML private RadioButton mediumRadioButton;
     @FXML private RadioButton largeRadioButton;
 
-    //  State Variables for coloring
+    // Initalize State Variables for coloring
     private PenSize penSize = PenSize.MEDIUM; // default
     private Color brushColor = Color.BLACK; // default
-
     
-        // ===== Initialize method called automatically after FXML loads =====
+    
+    //Initialize method called automatically after FXML loads
     @FXML
     private void initialize() {
 
@@ -55,7 +52,16 @@ public class PainterController {
         smallRadioButton.setUserData(PenSize.SMALL);
         mediumRadioButton.setUserData(PenSize.MEDIUM);
         largeRadioButton.setUserData(PenSize.LARGE);
+        
+         // Select default RadioButtons
+        blackRadioButton.setSelected(true);   // default color
+        mediumRadioButton.setSelected(true);  // default size
+
+        // Update the brushColor and penSize variables to match the selected buttons
+        brushColor = (Color) colorToggleGroup.getSelectedToggle().getUserData();
+        penSize = (PenSize) sizeToggleGroup.getSelectedToggle().getUserData();
     }
+    
     
     private enum PenSize {  
         SMALL(2),
