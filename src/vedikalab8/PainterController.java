@@ -18,7 +18,7 @@ import javafx.scene.shape.Circle;
 public class PainterController {
 
     
-     // GUI Component References (fx:id must match Scene Builder) =====
+     // GUI Component References 
     @FXML private Pane drawingAreaPane;
      
      @FXML
@@ -36,49 +36,28 @@ public class PainterController {
     @FXML private RadioButton mediumRadioButton;
     @FXML private RadioButton largeRadioButton;
 
-    // ===== State Variables =====
+    //  State Variables for coloring
     private PenSize penSize = PenSize.MEDIUM; // default
-    private Color brushColor = Color.BLACK;  // default
+    private Color brushColor = Color.BLACK; // default
 
     
-    //event handlers 
+        // ===== Initialize method called automatically after FXML loads =====
     @FXML
-    void clearButtonPressed(ActionEvent event) {
-        drawingAreaPane.getChildren().clear();
+    private void initialize() {
+
+        // Attach UserData to color RadioButtons
+        blackRadioButton.setUserData(Color.BLACK);
+        redRadioButton.setUserData(Color.RED);
+        blueRadioButton.setUserData(Color.BLUE);
+        greenRadioButton.setUserData(Color.GREEN);
+
+        // Attach UserData to size RadioButtons
+        smallRadioButton.setUserData(PenSize.SMALL);
+        mediumRadioButton.setUserData(PenSize.MEDIUM);
+        largeRadioButton.setUserData(PenSize.LARGE);
     }
     
-
-      @FXML
-    private void colorRadioButtonSelected() {
-        // Get selected RadioButton's color from its user data
-        brushColor = (Color) colorToggleGroup.getSelectedToggle().getUserData();
-    }
-
-    @FXML
-    private void sizeRadioButtonSelected() {
-        // Get selected RadioButton's pen size from its user data
-        penSize = (PenSize) sizeToggleGroup.getSelectedToggle().getUserData();
-    }
-
-
-    @FXML
-    void drawingAreaMouseDragged(MouseEvent event) {
-       // Create a circle where mouse is dragged
-        Circle newCircle = new Circle(event.getX(), event.getY(), penSize.getRadius(),brushColor );
-        drawingAreaPane.getChildren().add(newCircle);
-    }
-    
-
-    @FXML
-    private void undoButtonPressed() {
-        int size = drawingAreaPane.getChildren().size();
-        if (size > 0) {
-            drawingAreaPane.getChildren().remove(size - 1);
-        }
-    }
-    
-    private enum PenSize {
-   
+    private enum PenSize {  
         SMALL(2),
         MEDIUM(4),
         LARGE(6);
@@ -93,21 +72,38 @@ public class PainterController {
             return radius;
         }
     }
-   
+    
+    //event handlers 
+    
+      @FXML
+    private void colorRadioButtonSelected() {
+        // Get selected RadioButton's color from its user data
+        brushColor = (Color) colorToggleGroup.getSelectedToggle().getUserData();
+    }
 
-    // ===== Initialize method called automatically after FXML loads =====
     @FXML
-    private void initialize() {
+    private void sizeRadioButtonSelected() {
+        // Get selected RadioButton's pen size from its user data
+        penSize = (PenSize) sizeToggleGroup.getSelectedToggle().getUserData();
+    }
 
-        // Attach UserData to color RadioButtons
-        blackRadioButton.setUserData(Color.BLACK);
-        redRadioButton.setUserData(Color.RED);
-        blueRadioButton.setUserData(Color.BLUE);
-        greenRadioButton.setUserData(Color.GREEN);
-
-        // Attach UserData to size RadioButtons
-        smallRadioButton.setUserData(PenSize.SMALL);
-        mediumRadioButton.setUserData(PenSize.MEDIUM);
-        largeRadioButton.setUserData(PenSize.LARGE);
+    @FXML
+    void drawingAreaMouseDragged(MouseEvent event) {
+       // Create a circle where mouse is dragged
+        Circle newCircle = new Circle(event.getX(), event.getY(), penSize.getRadius(),brushColor );
+        drawingAreaPane.getChildren().add(newCircle);
+    }
+    
+    @FXML
+    private void undoButtonPressed() {
+        int size = drawingAreaPane.getChildren().size();
+        if (size > 0) {
+            drawingAreaPane.getChildren().remove(size - 1);
+        }
+    }
+        
+    @FXML
+    private void clearButtonPressed(ActionEvent event) {
+        drawingAreaPane.getChildren().clear();
     }
 }
