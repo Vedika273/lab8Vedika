@@ -13,6 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
+
+/**
+ * //https://github.com/Vedika273/lab8Vedika
+ * @author Vedika
+ */
 public class PainterController {
     
      // GUI Component References 
