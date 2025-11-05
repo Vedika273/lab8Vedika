@@ -6,7 +6,7 @@ package vedikalab8;
 
 
  
-import java.awt.Color;
+import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
@@ -15,7 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 
-public class MainFXMLController {
+public class PainterController {
 
     
      // GUI Component References (fx:id must match Scene Builder) =====
@@ -78,6 +78,7 @@ public class MainFXMLController {
     }
     
     private enum PenSize {
+   
         SMALL(2),
         MEDIUM(4),
         LARGE(6);
