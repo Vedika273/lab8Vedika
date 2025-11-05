@@ -16,14 +16,15 @@ import javafx.scene.shape.Circle;
 public class PainterController {
     
      // GUI Component References 
-    @FXML private Pane drawingAreaPane;
+    @FXML private Pane drawingAreaPane; 
      
     @FXML
-    private ToggleGroup colorToggleGroup;
+    private ToggleGroup colorToggleGroup; //group for the color radio buttons
 
     @FXML
-    private ToggleGroup sizeToggleGroup;
+    private ToggleGroup sizeToggleGroup; //grroup for the pen size radio buttons
 
+    //color options 
     @FXML private RadioButton blackRadioButton;
     @FXML private RadioButton redRadioButton;
     @FXML private RadioButton blueRadioButton;
@@ -34,8 +35,8 @@ public class PainterController {
     @FXML private RadioButton largeRadioButton;
 
     // Initalize State Variables for coloring
-    private PenSize penSize = PenSize.MEDIUM; // default
-    private Color brushColor = Color.BLACK; // default
+    private PenSize penSize = PenSize.MEDIUM; // default pen size
+    private Color brushColor = Color.BLACK; // default brush color
     
     
     //Initialize method called automatically after FXML loads
@@ -64,7 +65,7 @@ public class PainterController {
     
     
     private enum PenSize {  
-        SMALL(2),
+        SMALL(2), 
         MEDIUM(4),
         LARGE(6);
 
@@ -83,25 +84,32 @@ public class PainterController {
     
       @FXML
     private void colorRadioButtonSelected() {
-        // Get selected RadioButton's color from its user data
+        // Udate brushColor when user selcts a different color
         brushColor = (Color) colorToggleGroup.getSelectedToggle().getUserData();
     }
 
     @FXML
     private void sizeRadioButtonSelected() {
-        // Get selected RadioButton's pen size from its user data
+        // update penSize when the user selects a different size
         penSize = (PenSize) sizeToggleGroup.getSelectedToggle().getUserData();
     }
 
     @FXML
     void drawingAreaMouseDragged(MouseEvent event) {
        // Create a circle where mouse is dragged
-        Circle newCircle = new Circle(event.getX(), event.getY(), penSize.getRadius(),brushColor );
+        Circle newCircle = new Circle(
+                event.getX(), //the x coordinate of the mouse
+                event.getY(), //the y coordinate of the mouse
+                penSize.getRadius(), //radius based on the selected pen size
+                brushColor //fill color depending on selected color 
+        );
+        //add the cirle to the pane 
         drawingAreaPane.getChildren().add(newCircle);
     }
     
     @FXML
     private void undoButtonPressed() {
+        //remove the circle that was last drawn from the pane 
         int size = drawingAreaPane.getChildren().size();
         if (size > 0) {
             drawingAreaPane.getChildren().remove(size - 1);
@@ -110,6 +118,7 @@ public class PainterController {
         
     @FXML
     private void clearButtonPressed(ActionEvent event) {
+        //remove all the circles from the drawing pane 
         drawingAreaPane.getChildren().clear();
     }
 }
